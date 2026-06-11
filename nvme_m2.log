@@ -1,0 +1,121 @@
+[  0.000072] INFO   ═══════════════════════════════════════════════
+[  0.000131] INFO     Milestone 2 — Firmware MMIO and DMA
+[  0.000140] INFO     NVMe Firmware Diagnostic Project
+[  0.000145] INFO   ═══════════════════════════════════════════════
+[  0.000154] INFO   System page size: 16384 bytes
+[  0.000159] INFO    
+[  0.000164] INFO   [M2.1] Confirming BAR0 size and alignment...
+[  0.000337] INFO   NVMe found: BDF=0001:01:00.0  VID=0x144D  DID=0xA809  BAR0=0x1B80000000 (16 KB)
+[  0.000346] INFO   Current driver: nvme
+[  0.000370] INFO   DMA offset: using BCM2712 default 0x1000000000
+[  0.000375] INFO   BAR0 physical address : 0x1B80000000
+[  0.000381] INFO   BAR0 size             : 16384 bytes (16 KB)
+[  0.000386] INFO   BAR0 page-aligned (16384 B) : YES
+[  0.000392] INFO   BAR0 4K-aligned          : YES
+[  0.000397] INFO   [M2.1] ✓ BAR0 size=16384 bytes, properly aligned.
+[  0.000402] INFO    
+[  0.000416] INFO   Unbinding kernel driver for exclusive access...
+[  0.722486] INFO   Kernel driver unbound from 0001:01:00.0
+[  0.734274] INFO   PCI Command register updated: bus mastering + mem space enabled
+[  0.734321] INFO   BAR0 mapped: phys=0x1B80000000  virt=0x7ffecc518000  size=16384 bytes
+[  0.734326] INFO    
+[  0.734330] INFO   [M2.2] Allocating 6 DMA buffers...
+[  0.734383] DEBUG  DMA buffer: virt=0x7ffecc514000  phys=0xA44AC000  bus=0x10A44AC000  size=16384
+[  0.734400] DEBUG  DMA buffer: virt=0x7ffecc510000  phys=0x85520000  bus=0x1085520000  size=16384
+[  0.734415] DEBUG  DMA buffer: virt=0x7ffecc50c000  phys=0x66964000  bus=0x1066964000  size=16384
+[  0.734432] DEBUG  DMA buffer: virt=0x7ffecc508000  phys=0x5FB04000  bus=0x105FB04000  size=16384
+[  0.734447] DEBUG  DMA buffer: virt=0x7ffecc33c000  phys=0xF661C000  bus=0x10F661C000  size=16384
+[  0.734461] DEBUG  DMA buffer: virt=0x7ffecc338000  phys=0xC7098000  bus=0x10C7098000  size=16384
+[  0.734465] INFO   [M2.2] ✓ All 6 DMA buffers allocated.
+[  0.734469] INFO    
+[  0.734472] INFO   [M2.3] Verifying physical address alignment...
+[  0.734475] INFO    
+[  0.734478] INFO   [M2.5] DMA Buffer Address Table (for PRP construction):
+[  0.734482] INFO     Buffer                  Virtual             Physical            Bus (PCIe)          Size    4K Align
+[  0.734487] INFO     ──────────────────────  ──────────────────  ──────────────────  ──────────────────  ──────  ────────
+[  0.734493] INFO     Identify Controller     0x7ffecc514000  0x00000000A44AC000  0x00000010A44AC000  16384  ✓ YES
+[  0.734499] INFO     Identify Namespace      0x7ffecc510000  0x0000000085520000  0x0000001085520000  16384  ✓ YES
+[  0.734502] INFO     I/O Data Buffer 1       0x7ffecc50c000  0x0000000066964000  0x0000001066964000  16384  ✓ YES
+[  0.734505] INFO     I/O Data Buffer 2       0x7ffecc508000  0x000000005FB04000  0x000000105FB04000  16384  ✓ YES
+[  0.734510] INFO     PRP List Page           0x7ffecc33c000  0x00000000F661C000  0x00000010F661C000  16384  ✓ YES
+[  0.734513] INFO     Scratch Buffer          0x7ffecc338000  0x00000000C7098000  0x00000010C7098000  16384  ✓ YES
+[  0.734517] INFO   [M2.3] ✓ All buffers are 4K-aligned (NVMe page size).
+[  0.734520] INFO    
+[  0.734523] INFO   [M2.4] End-to-end DMA transfer validation...
+[  0.734526] INFO     Step 1: Controller reset and enable...
+[  0.734575] TRACE  MMIO RD  off=0x0000  w=64  val=0x000000303C033FFF
+[  0.734579] INFO   Controller context: MQES=16384  DB_stride=4  timeout=30000 ms
+[  0.734621] TRACE  MMIO RD  off=0x0014  w=32  val=0x00464001
+[  0.734625] INFO   Disabling controller (CC.EN → 0)...
+[  0.734628] TRACE  MMIO WR  off=0x0014  w=32  val=0x00464000
+[  0.734632] DEBUG  Waiting for CSTS.RDY = 0...
+[  0.734659] TRACE  MMIO RD  off=0x001C  w=32  val=0x00000009
+[  0.735722] TRACE  MMIO RD  off=0x001C  w=32  val=0x00000009
+[  0.736780] TRACE  MMIO RD  off=0x001C  w=32  val=0x00000009
+[  0.737837] TRACE  MMIO RD  off=0x001C  w=32  val=0x00000009
+[  0.738894] TRACE  MMIO RD  off=0x001C  w=32  val=0x00000009
+[  0.739954] TRACE  MMIO RD  off=0x001C  w=32  val=0x00000009
+[  0.741011] TRACE  MMIO RD  off=0x001C  w=32  val=0x00000009
+[  0.742069] TRACE  MMIO RD  off=0x001C  w=32  val=0x00000009
+[  0.743156] TRACE  MMIO RD  off=0x001C  w=32  val=0x00000000
+[  0.743167] INFO   Controller disabled (CSTS.RDY = 0).
+[  0.743193] DEBUG  DMA buffer: virt=0x7ffecc334000  phys=0xA5590000  bus=0x10A5590000  size=16384
+[  0.743209] DEBUG  DMA buffer: virt=0x7ffecc330000  phys=0x96AC0000  bus=0x1096AC0000  size=16384
+[  0.743214] INFO   Admin SQ: virt=0x7ffecc334000  phys=0xA5590000  bus=0x10A5590000
+[  0.743218] INFO   Admin CQ: virt=0x7ffecc330000  phys=0x96AC0000  bus=0x1096AC0000
+[  0.743221] TRACE  MMIO WR  off=0x0024  w=32  val=0x001F001F
+[  0.743224] TRACE  MMIO WR  off=0x0028  w=64  val=0x00000010A5590000
+[  0.743228] TRACE  MMIO WR  off=0x0030  w=64  val=0x0000001096AC0000
+[  0.743231] INFO   Enabling controller (CC = 0x00460001)...
+[  0.743234] TRACE  MMIO WR  off=0x0014  w=32  val=0x00460001
+[  0.743250] TRACE  MMIO RD  off=0x001C  w=32  val=0x00000000
+[  0.744333] TRACE  MMIO RD  off=0x001C  w=32  val=0x00000000
+[  0.745414] TRACE  MMIO RD  off=0x001C  w=32  val=0x00000000
+[  0.746495] TRACE  MMIO RD  off=0x001C  w=32  val=0x00000000
+[  0.747554] TRACE  MMIO RD  off=0x001C  w=32  val=0x00000001
+[  0.747558] INFO   Controller ENABLED and READY.
+[  0.747562] INFO     ✓ Controller is READY.
+[  0.747565] INFO     Step 2: Identify Controller (DMA round-trip test)...
+[  0.747568] TRACE  MMIO WR  off=0x1000  w=32  val=0x00000001
+[  0.752437] TRACE  MMIO WR  off=0x1004  w=32  val=0x00000001
+[  0.752442] INFO     Step 3: Verifying DMA'd Identify data...
+[  0.752446] INFO     Serial   : "S4YCNX0R704829"
+[  0.752449] INFO     Model    : "SAMSUNG MZALQ512HALU-000L1"
+[  0.752452] INFO     Firmware : "EL1QFXV7"
+[  0.752455] INFO     Raw Identify data (first 64 bytes):
+[  0.752461] INFO       [0x00] 4D 14 4D 14 53 34 59 43 4E 58 30 52 37 30 34 38 
+[  0.752465] INFO       [0x10] 32 39 20 20 20 20 20 20 53 41 4D 53 55 4E 47 20 
+[  0.752470] INFO       [0x20] 4D 5A 41 4C 51 35 31 32 48 41 4C 55 2D 30 30 30 
+[  0.752475] INFO       [0x30] 4C 31 20 20 20 20 20 20 20 20 20 20 20 20 20 20 
+[  0.752479] INFO     ✓ DMA round-trip PASSED — data verified!
+[  0.752481] INFO    
+[  0.752484] INFO     Bonus: Identify Namespace (second DMA transfer)...
+[  0.752487] TRACE  MMIO WR  off=0x1000  w=32  val=0x00000002
+[  0.754315] TRACE  MMIO WR  off=0x1004  w=32  val=0x00000002
+[  0.754321] INFO     NSZE (total LBAs) : 1000215216
+[  0.754324] INFO     Block size        : 512 bytes
+[  0.754327] INFO     Capacity          : ~476 GB
+[  0.754330] INFO     ✓ Namespace Identify DMA verified.
+[  0.754333] INFO    
+[  0.754336] INFO   [M2.4] ✓ End-to-end DMA transfer validation PASSED.
+[  0.754339] INFO    
+[  0.754342] INFO   ═══════════════════════════════════════════════
+[  0.754346] INFO     Milestone 2 — Summary
+[  0.754350] INFO   ═══════════════════════════════════════════════
+[  0.754354] INFO     [M2.1] ✓ BAR0: 16384 bytes, 4K-aligned at 0x1B80000000
+[  0.754357] INFO     [M2.2] ✓ 6 DMA buffers allocated (page-aligned, mlock'd, flushed)
+[  0.754360] INFO     [M2.3] ✓ All physical addresses are NVMe-page-aligned (4 KB)
+[  0.754364] INFO     [M2.4] ✓ DMA round-trip: Identify Controller + Namespace verified
+[  0.754366] INFO     [M2.5] ✓ Address table logged (see above / nvme_m2.log)
+[  0.754369] INFO    
+[  0.754373] INFO     Device  : SAMSUNG MZALQ512HALU-000L1 (S4YCNX0R704829) FW=EL1QFXV7
+[  0.754376] INFO    
+[  0.754379] INFO     Ready for Milestone 3 (NVMe Admin Path).
+[  0.754383] TRACE  MMIO RD  off=0x0014  w=32  val=0x00460001
+[  0.754389] TRACE  MMIO WR  off=0x0014  w=32  val=0x00460000
+[  0.754393] INFO   Controller disabled.
+[  0.754412] DEBUG  Admin queue buffers freed.
+[  0.754443] DEBUG  BAR0 unmapped
+[  0.754447] INFO    
+[  0.754450] INFO   Re-binding kernel NVMe driver...
+[  0.882400] INFO   NVMe driver re-bound to 0001:01:00.0

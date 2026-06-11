@@ -15,22 +15,30 @@ CFLAGS  += -I include
 LDFLAGS  =
 
 # Common source modules (shared across all milestones)
-COMMON_SRC = src/log.c src/pci.c src/mmio.c src/dma.c
+COMMON_SRC = src/log.c src/pci.c src/mmio.c src/dma.c src/nvme_ctrl.c
 COMMON_OBJ = $(COMMON_SRC:.c=.o)
 
 # Milestone targets
 M1_SRC = src/milestone1.c
 M1_BIN = milestone1
 
+M2_SRC = src/milestone2.c
+M2_BIN = milestone2
+
 # Default target
 .PHONY: default all clean
 
-default: $(M1_BIN)
+default: $(M2_BIN)
 
-all: $(M1_BIN)
+all: $(M1_BIN) $(M2_BIN)
 
 # ── Milestone 1: Bring-up and Discovery ──────────────────────
-$(M1_BIN): $(COMMON_OBJ) $(M1_SRC:.c=.o)
+$(M1_BIN): src/log.o src/pci.o src/mmio.o src/dma.o $(M1_SRC:.c=.o)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	@echo "Built: $@  (run with: sudo ./$@)"
+
+# ── Milestone 2: Firmware MMIO and DMA ───────────────────────
+$(M2_BIN): $(COMMON_OBJ) $(M2_SRC:.c=.o)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 	@echo "Built: $@  (run with: sudo ./$@)"
 
@@ -40,6 +48,6 @@ src/%.o: src/%.c
 
 # ── Clean ────────────────────────────────────────────────────
 clean:
-	rm -f src/*.o $(M1_BIN)
-	rm -f nvme_m1.log
+	rm -f src/*.o $(M1_BIN) $(M2_BIN)
+	rm -f nvme_m1.log nvme_m2.log
 	@echo "Clean."
