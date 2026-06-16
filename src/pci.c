@@ -111,15 +111,15 @@ int pci_find_nvme(struct pci_device *dev)
         return -1;
     }
 
-    log_msg(LOG_INFO, "NVMe found: BDF=%s  VID=0x%04X  DID=0x%04X  BAR0=0x%llX (%llu KB)",
+    log_msg(LOG_DEBUG, "NVMe found: BDF=%s  VID=0x%04X  DID=0x%04X  BAR0=0x%llX (%llu KB)",
             dev->bdf, dev->vendor_id, dev->device_id,
             (unsigned long long)dev->bar0_phys,
             (unsigned long long)dev->bar0_size / 1024);
 
     if (dev->driver[0])
-        log_msg(LOG_INFO, "Current driver: %s", dev->driver);
+        log_msg(LOG_DEBUG, "Current driver: %s", dev->driver);
     else
-        log_msg(LOG_INFO, "No driver bound");
+        log_msg(LOG_DEBUG, "No driver bound");
 
     return 0;
 }
@@ -139,7 +139,7 @@ int pci_unbind_driver(struct pci_device *dev)
     usleep(500000); /* 500 ms for driver cleanup */
 
     dev->driver[0] = '\0';
-    log_msg(LOG_INFO, "Kernel driver unbound from %s", dev->bdf);
+    log_msg(LOG_DEBUG, "Kernel driver unbound from %s", dev->bdf);
     return 0;
 }
 
@@ -154,7 +154,7 @@ int pci_rebind_nvme_driver(struct pci_device *dev)
     fprintf(f, "%s", dev->bdf);
     fclose(f);
     snprintf(dev->driver, sizeof(dev->driver), "nvme");
-    log_msg(LOG_INFO, "NVMe driver re-bound to %s", dev->bdf);
+    log_msg(LOG_DEBUG, "NVMe driver re-bound to %s", dev->bdf);
     return 0;
 }
 
@@ -176,7 +176,7 @@ int pci_enable_bus_master(struct pci_device *dev)
     if ((cmd & needed) != needed) {
         cmd |= needed;
         pwrite(fd, &cmd, 2, 4);
-        log_msg(LOG_INFO, "PCI Command register updated: bus mastering + mem space enabled");
+        log_msg(LOG_DEBUG, "PCI Command register updated: bus mastering + mem space enabled");
     } else {
         log_msg(LOG_DEBUG, "Bus mastering already enabled (PCI CMD=0x%04X)", cmd);
     }
@@ -207,7 +207,7 @@ int pci_map_bar0(struct pci_device *dev)
         return -1;
     }
 
-    log_msg(LOG_INFO, "BAR0 mapped: phys=0x%llX  virt=%p  size=%llu bytes",
+    log_msg(LOG_DEBUG, "BAR0 mapped: phys=0x%llX  virt=%p  size=%llu bytes",
             (unsigned long long)dev->bar0_phys, dev->bar0,
             (unsigned long long)map_size);
     return 0;
@@ -258,6 +258,6 @@ void pci_detect_dma_offset(struct pci_device *dev)
 
     /* Default for BCM2712 (Broadcom SoC on RPi 5) */
     dev->dma_offset = 0x1000000000ULL;
-    log_msg(LOG_INFO, "DMA offset: using BCM2712 default 0x%llX",
+    log_msg(LOG_DEBUG, "DMA offset: using BCM2712 default 0x%llX",
             (unsigned long long)dev->dma_offset);
 }

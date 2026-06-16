@@ -58,7 +58,7 @@ int nvme_ctrl_init(struct nvme_ctrl *ctrl, struct pci_device *pci)
 
     ctrl->admin_cq_phase = 1; /* Phase starts at 1 after reset */
 
-    log_msg(LOG_INFO, "Controller context: MQES=%u  DB_stride=%u  timeout=%u ms",
+    log_msg(LOG_DEBUG, "Controller context: MQES=%u  DB_stride=%u  timeout=%u ms",
             ctrl->max_queue_entries, ctrl->doorbell_stride, ctrl->timeout_ms);
     return 0;
 }
@@ -70,7 +70,7 @@ int nvme_ctrl_reset_and_enable(struct nvme_ctrl *ctrl)
     /* ── Step 1: Disable controller ──────────────────────────── */
     uint32_t cc = mmio_read32(NVME_REG_CC);
     if (cc & CC_EN) {
-        log_msg(LOG_INFO, "Disabling controller (CC.EN → 0)...");
+        log_msg(LOG_DEBUG, "Disabling controller (CC.EN → 0)...");
         mmio_write32(NVME_REG_CC, cc & ~CC_EN);
     }
 
@@ -90,7 +90,7 @@ int nvme_ctrl_reset_and_enable(struct nvme_ctrl *ctrl)
         }
         usleep(1000);
     }
-    log_msg(LOG_INFO, "Controller disabled (CSTS.RDY = 0).");
+    log_msg(LOG_DEBUG, "Controller disabled (CSTS.RDY = 0).");
 
     /* ── Step 2: Allocate admin queue DMA buffers ────────────── */
     size_t sq_size = NVME_ADMIN_Q_DEPTH * sizeof(struct nvme_cmd);   /* 32×64 = 2048 */
@@ -106,11 +106,11 @@ int nvme_ctrl_reset_and_enable(struct nvme_ctrl *ctrl)
         return -1;
     }
 
-    log_msg(LOG_INFO, "Admin SQ: virt=%p  phys=0x%llX  bus=0x%llX",
+    log_msg(LOG_DEBUG, "Admin SQ: virt=%p  phys=0x%llX  bus=0x%llX",
             ctrl->admin_sq.virt,
             (unsigned long long)ctrl->admin_sq.phys,
             (unsigned long long)ctrl->admin_sq.bus);
-    log_msg(LOG_INFO, "Admin CQ: virt=%p  phys=0x%llX  bus=0x%llX",
+    log_msg(LOG_DEBUG, "Admin CQ: virt=%p  phys=0x%llX  bus=0x%llX",
             ctrl->admin_cq.virt,
             (unsigned long long)ctrl->admin_cq.phys,
             (unsigned long long)ctrl->admin_cq.bus);
@@ -131,7 +131,7 @@ int nvme_ctrl_reset_and_enable(struct nvme_ctrl *ctrl)
     /* ── Step 4: Enable controller ───────────────────────────── */
     uint32_t new_cc = CC_EN | CC_CSS_NVM | CC_MPS_4K |
                       CC_IOSQES_64 | CC_IOCQES_16;
-    log_msg(LOG_INFO, "Enabling controller (CC = 0x%08X)...", new_cc);
+    log_msg(LOG_DEBUG, "Enabling controller (CC = 0x%08X)...", new_cc);
     mmio_write32(NVME_REG_CC, new_cc);
 
     /* Wait for CSTS.RDY = 1 */
@@ -154,7 +154,7 @@ int nvme_ctrl_reset_and_enable(struct nvme_ctrl *ctrl)
         }
         usleep(1000);
     }
-    log_msg(LOG_INFO, "Controller ENABLED and READY.");
+    log_msg(LOG_DEBUG, "Controller ENABLED and READY.");
     return 0;
 }
 
@@ -164,7 +164,7 @@ void nvme_ctrl_shutdown(struct nvme_ctrl *ctrl)
     uint32_t cc = mmio_read32(NVME_REG_CC);
     if (cc & CC_EN) {
         mmio_write32(NVME_REG_CC, cc & ~CC_EN);
-        log_msg(LOG_INFO, "Controller disabled.");
+        log_msg(LOG_DEBUG, "Controller disabled.");
     }
 
     /* Free admin queue buffers */
@@ -252,7 +252,7 @@ int nvme_set_num_queues(struct nvme_ctrl *ctrl,
     if (nsq_out) *nsq_out = (result & 0xFFFF) + 1;
     if (ncq_out) *ncq_out = ((result >> 16) & 0xFFFF) + 1;
 
-    log_msg(LOG_INFO, "Set Features NumQueues: allocated %u SQs, %u CQs",
+    log_msg(LOG_DEBUG, "Set Features NumQueues: allocated %u SQs, %u CQs",
             (result & 0xFFFF) + 1, ((result >> 16) & 0xFFFF) + 1);
     return 0;
 }

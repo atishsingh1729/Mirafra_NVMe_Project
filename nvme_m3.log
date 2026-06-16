@@ -1,0 +1,8 @@
+[  0.697772] INFO   Controller: SAMSUNG MZALQ512HALU-000L1  SN=S4YCNX0R704829  FW=EL1QFXV7
+[  0.697830] INFO     NVMe 1.3.0 | VID=0x144D | CNTLID=5 | NN=1 | MDTS=9
+[  0.697836] INFO     OACS=0x0017  ONCS=0x0057  VWC=yes  SQES=64/64  CQES=16/16
+[  0.699689] INFO   Namespace 1: 1000215216 LBAs x 512 B = 476 GB  (used: 172033888 LBAs)
+[  0.708494] INFO   SMART: 23°C | spare=100% | used=6% | warn=0x00
+[  0.708504] INFO     Read=40666 GB  Written=26614 GB  Busy=5956 min
+[  0.708508] INFO     Power: 1517 cycles, 2434 hrs, 172 unsafe shutdowns
+[  0.708511] INFO     Errors: 0 media, 94056 log entries
