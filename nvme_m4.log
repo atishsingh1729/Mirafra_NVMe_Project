@@ -1,0 +1,24 @@
+[  0.748072] INFO   Controller disabled.
+[  0.752473] INFO   Controller enabled.
+[  0.752488] INFO   Test 1: Identify Controller (sync, single command)
+[  0.757412] INFO     -> SAMSUNG MZALQ512HALU-000L1  SN=S4YCNX0R704829
+[  0.759262] INFO     NS1: 1000215216 LBAs x 512 B
+[  0.759284] INFO   Test 2: CID tracking (3 back-to-back submits, then poll all)
+[  0.759308] INFO     Submitted CID=2
+[  0.759336] INFO     Submitted CID=3
+[  0.759361] INFO     Submitted CID=4
+[  0.759367] INFO     In-flight: 3
+[  0.762439] INFO     CID=2 completed SF=0x0000 OK
+[  0.762457] INFO     CID=3 completed SF=0x0000 OK
+[  0.762474] INFO     CID=4 completed SF=0x0000 OK
+[  0.762488] INFO   Test 3: Set Features (Number of Queues) + Create I/O QP
+[  0.766651] INFO     Allocated 8 SQs, 8 CQs
+[  0.768391] INFO     I/O QP1 created (depth=64)
+[  0.768401] INFO   Test 4: Write + Read via I/O queue pair
+[  0.768605] INFO     Write OK (LBA=0x100000)
+[  0.768768] INFO     Read OK + Verify PASS (512 bytes match)
+[  0.768774] INFO     Read-back: "QueueEngine-M4-Test!"
+[  0.768802] INFO   Queue engine summary:
+[  0.768808] INFO     Admin QP0: depth=32  CIDs used=8
+[  0.768815] INFO     I/O   QP1: depth=64  CIDs used=2
+[  0.768820] INFO     Tests: Identify, CID-tracking(x3), Set Features, Create I/O QP, Write, Read, Verify — all passed.
