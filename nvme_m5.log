@@ -1,0 +1,20 @@
+[  0.000248] INFO   Test 1: Interrupt setup
+[  0.695228] INFO   IRQ: using polling fallback (no kmod, no UIO)
+[  0.695270] INFO     Mode: Polling (CQ phase bit)
+[  0.695278] INFO     MSI-X table: 13 vectors
+[  0.695369] INFO   Test 2: Polling (CQ phase bit) CQ processing
+[  0.707361] INFO     Submitted 5 commands, in-flight=5
+[  0.716137] INFO     All 5 completed in 8 ms via Polling (CQ phase bit)
+[  0.716176] INFO     CID verification: all OK
+[  0.716182] INFO   Test 3: Reset mid-operation
+[  0.716206] INFO     Command submitted, forcing reset...
+[  0.724649] INFO     Disabled in 8 ms (limit 30000 ms) — OK
+[  0.724672] INFO   Test 4: Recovery after reset
+[  0.725767] INFO     Re-enabled in 1 ms (limit 30000 ms) — OK
+[  0.726863] INFO     Post-reset Identify OK: SN=S4YCNX0R704829
+[  0.726875] INFO   Results:
+[  0.726880] INFO     IRQ mode    : Polling (CQ phase bit)
+[  0.726885] INFO     MSI-X       : 13 vectors
+[  0.726890] INFO     CQ process  : 5/5 via Polling (CQ phase bit)
+[  0.726895] INFO     Reset       : 8 ms (limit 30000 ms)
+[  0.726900] INFO     Recovery    : 1 ms, Identify OK

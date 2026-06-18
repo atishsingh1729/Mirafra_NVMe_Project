@@ -1,69 +1,29 @@
-# NVMe Firmware Diagnostic Project — Makefile
-# ==============================================
-# Platform: Raspberry Pi 5 (ARM64) + Geekworm X1001
-#
-# Usage:
-#   make              — build current milestone (milestone1)
-#   make milestone1   — build Milestone 1 explicitly
-#   make all          — build all available milestones
-#   make clean        — remove build artifacts
-#   make VERBOSE=1    — show compiler commands
-
 CC       = gcc
-CFLAGS   = -Wall -Wextra -O2 -std=c11 -D_GNU_SOURCE
-CFLAGS  += -I include
+CFLAGS   = -Wall -Wextra -O2 -std=c11 -D_GNU_SOURCE -I include
 LDFLAGS  =
 
-# Common source modules (shared across all milestones)
-COMMON_SRC = src/log.c src/pci.c src/mmio.c src/dma.c src/nvme_ctrl.c src/nvme_admin.c src/nvme_queue.c
+COMMON_SRC = src/log.c src/pci.c src/mmio.c src/dma.c src/nvme_ctrl.c src/nvme_admin.c src/nvme_queue.c src/nvme_irq.c
 COMMON_OBJ = $(COMMON_SRC:.c=.o)
 
-# Milestone targets
-M1_SRC = src/milestone1.c
-M1_BIN = milestone1
+BINS = milestone1 milestone2 milestone3 milestone4 milestone5
 
-M2_SRC = src/milestone2.c
-M2_BIN = milestone2
-
-M3_SRC = src/milestone3.c
-M3_BIN = milestone3
-
-M4_SRC = src/milestone4.c
-M4_BIN = milestone4
-
-# Default target
 .PHONY: default all clean
 
-default: $(M4_BIN)
+default: milestone5
 
-all: $(M1_BIN) $(M2_BIN) $(M3_BIN) $(M4_BIN)
+all: $(BINS)
 
-# ── Milestone 1: Bring-up and Discovery ──────────────────────
-$(M1_BIN): src/log.o src/pci.o src/mmio.o src/dma.o $(M1_SRC:.c=.o)
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-	@echo "Built: $@  (run with: sudo ./$@)"
+milestone1: src/log.o src/pci.o src/mmio.o src/dma.o src/milestone1.o
+	$(CC) $(CFLAGS) -o $@ $^
 
-# ── Milestone 2: Firmware MMIO and DMA ───────────────────────
-$(M2_BIN): $(COMMON_OBJ) $(M2_SRC:.c=.o)
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-	@echo "Built: $@  (run with: sudo ./$@)"
+milestone2 milestone3: %: $(COMMON_OBJ) src/%.o
+	$(CC) $(CFLAGS) -o $@ $^
 
-# ── Milestone 3: NVMe Admin Path ────────────────────────────
-$(M3_BIN): $(COMMON_OBJ) $(M3_SRC:.c=.o)
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-	@echo "Built: $@  (run with: sudo ./$@)"
+milestone4 milestone5: %: $(COMMON_OBJ) src/%.o
+	$(CC) $(CFLAGS) -o $@ $^
 
-# ── Milestone 4: Queue Engine ────────────────────────────────
-$(M4_BIN): $(COMMON_OBJ) $(M4_SRC:.c=.o)
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-	@echo "Built: $@  (run with: sudo ./$@)"
-
-# ── Pattern rules ────────────────────────────────────────────
 src/%.o: src/%.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-# ── Clean ────────────────────────────────────────────────────
 clean:
-	rm -f src/*.o $(M1_BIN) $(M2_BIN) $(M3_BIN) $(M4_BIN)
-	rm -f nvme_m*.log
-	@echo "Clean."
+	rm -f src/*.o $(BINS) nvme_m*.log
