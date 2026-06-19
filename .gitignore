@@ -1,0 +1,9 @@
+#object files to be ignored
+*.o
+#Executables
+*.bin
+*.elf
+#Swap files
+*.swp
+*.swo 
+
