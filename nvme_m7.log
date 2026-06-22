@@ -1,0 +1,18 @@
+[  0.734113] INFO   Write QD=1 (200 commands):
+[  0.747151] INFO       Latency: min=49 avg=64 p50=65 p99=71 max=75 us
+[  0.747181] INFO       Throughput: 15443 IOPS, 7.54 MB/s (wall=12 ms)
+[  0.747188] INFO   Write QD=4 (200 commands):
+[  0.753026] INFO       Latency: min=65 avg=115 p50=66 p99=2533 max=2533 us
+[  0.753044] INFO       Throughput: 34394 IOPS, 16.79 MB/s (wall=5 ms)
+[  0.753050] INFO   Write QD=16 (200 commands):
+[  0.755829] INFO       Latency: min=68 avg=182 p50=73 p99=1656 max=1657 us
+[  0.755839] INFO       Throughput: 72516 IOPS, 35.41 MB/s (wall=2 ms)
+[  0.755844] INFO   Read QD=1 (200 commands):
+[  0.769333] INFO       Latency: min=49 avg=67 p50=65 p99=128 max=129 us
+[  0.769343] INFO       Throughput: 14850 IOPS, 7.25 MB/s (wall=13 ms)
+[  0.769349] INFO   Read QD=4 (200 commands):
+[  0.773022] INFO       Latency: min=65 avg=72 p50=66 p99=195 max=196 us
+[  0.773031] INFO       Throughput: 54750 IOPS, 26.73 MB/s (wall=3 ms)
+[  0.773037] INFO   Read QD=16 (200 commands):
+[  0.774221] INFO       Latency: min=65 avg=81 p50=71 p99=267 max=267 us
+[  0.774228] INFO       Throughput: 171969 IOPS, 83.97 MB/s (wall=1 ms)
