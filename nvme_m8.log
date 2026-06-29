@@ -1,0 +1,55 @@
+[  0.713155] INFO   Test 1: Error injection — invalid opcode
+[  0.715952] INFO     opcode 0xFF → SF=0x0001
+[  0.715959] INFO   Test 2: Error injection — invalid NSID
+[  0.716877] INFO     NSID=0xFFFFFFFE → SF=0x200B
+[  0.716881] INFO   Test 3: Error injection — invalid log page
+[  0.718406] INFO     LID=0xFF → SF=0x2109
+[  0.718410] INFO   Test 4: Valid Identify after errors
+[  0.719935] INFO     OK: SN=S4YCNX0R704829 (controller alive)
+[  0.719941] INFO     Counters: sub=4 cpl=4 err=3 wr=0 B rd=0 B
+[  0.719944] INFO   Test 5: I/O burst — counters + QD tracking
+[  0.720105] INFO     20 writes at QD=4 done
+[  0.720111] INFO     Counters: sub=4 cpl=60 err=0 wr=30720 B rd=0 B
+[  0.721123] INFO     20 reads at QD=4 done
+[  0.721127] INFO     Counters: sub=20 cpl=80 err=0 wr=30720 B rd=10240 B
+[  0.721130] INFO   Test 6: Error injection — I/O beyond capacity
+[  0.725823] INFO     LBA=max → SF=0x2080
+[  0.725829] INFO     Counters: sub=21 cpl=81 err=1 wr=30720 B rd=10240 B
+[  0.725833] INFO   Test 7: Trace ring buffer
+[  0.725836] INFO     Trace (last 32 events):
+[  0.725840] INFO       [1514244640 us] SUBMIT op=0x02 CID=6 SF=0x0000 QD=3
+[  0.725843] INFO       [1514244641 us] SUBMIT op=0x02 CID=7 SF=0x0000 QD=4
+[  0.725846] INFO       [1514244704 us] COMPL  op=0x02 CID=4 SF=0x0000 QD=0
+[  0.725850] INFO       [1514244704 us] COMPL  op=0x02 CID=5 SF=0x0000 QD=0
+[  0.725852] INFO       [1514244704 us] COMPL  op=0x02 CID=6 SF=0x0000 QD=0
+[  0.725855] INFO       [1514244704 us] COMPL  op=0x02 CID=7 SF=0x0000 QD=0
+[  0.725859] INFO       [1514244767 us] SUBMIT op=0x02 CID=8 SF=0x0000 QD=1
+[  0.725861] INFO       [1514244767 us] SUBMIT op=0x02 CID=9 SF=0x0000 QD=2
+[  0.725865] INFO       [1514244768 us] SUBMIT op=0x02 CID=10 SF=0x0000 QD=3
+[  0.725870] INFO       [1514244768 us] SUBMIT op=0x02 CID=11 SF=0x0000 QD=4
+[  0.725874] INFO       [1514245017 us] COMPL  op=0x02 CID=8 SF=0x0000 QD=2
+[  0.725877] INFO       [1514245017 us] COMPL  op=0x02 CID=9 SF=0x0000 QD=2
+[  0.725879] INFO       [1514245080 us] SUBMIT op=0x02 CID=12 SF=0x0000 QD=3
+[  0.725882] INFO       [1514245080 us] SUBMIT op=0x02 CID=13 SF=0x0000 QD=4
+[  0.725884] INFO       [1514245081 us] COMPL  op=0x02 CID=10 SF=0x0000 QD=2
+[  0.725887] INFO       [1514245081 us] COMPL  op=0x02 CID=11 SF=0x0000 QD=2
+[  0.725890] INFO       [1514245143 us] SUBMIT op=0x02 CID=14 SF=0x0000 QD=3
+[  0.725893] INFO       [1514245144 us] SUBMIT op=0x02 CID=15 SF=0x0000 QD=4
+[  0.725895] INFO       [1514245332 us] COMPL  op=0x02 CID=12 SF=0x0000 QD=2
+[  0.725898] INFO       [1514245332 us] COMPL  op=0x02 CID=13 SF=0x0000 QD=2
+[  0.725901] INFO       [1514245394 us] SUBMIT op=0x02 CID=16 SF=0x0000 QD=3
+[  0.725904] INFO       [1514245395 us] SUBMIT op=0x02 CID=17 SF=0x0000 QD=4
+[  0.725908] INFO       [1514245395 us] COMPL  op=0x02 CID=14 SF=0x0000 QD=2
+[  0.725912] INFO       [1514245395 us] COMPL  op=0x02 CID=15 SF=0x0000 QD=2
+[  0.725915] INFO       [1514245458 us] SUBMIT op=0x02 CID=18 SF=0x0000 QD=3
+[  0.725918] INFO       [1514245458 us] SUBMIT op=0x02 CID=19 SF=0x0000 QD=4
+[  0.725922] INFO       [1514245522 us] COMPL  op=0x02 CID=16 SF=0x0000 QD=0
+[  0.725925] INFO       [1514245522 us] COMPL  op=0x02 CID=17 SF=0x0000 QD=0
+[  0.725928] INFO       [1514245522 us] COMPL  op=0x02 CID=18 SF=0x0000 QD=0
+[  0.725932] INFO       [1514245522 us] COMPL  op=0x02 CID=19 SF=0x0000 QD=0
+[  0.725936] INFO       [1514245594 us] SUBMIT op=0x02 CID=0 SF=0x0000 QD=0
+[  0.725939] INFO       [1514250284 us] ERROR  op=0x02 CID=0 SF=0x2080 QD=0
+[  0.725942] INFO   Results:
+[  0.725945] INFO     Errors injected: 4 admin + 1 I/O, controller survived all
+[  0.725948] INFO     Total: 21 submits, 81 completions, 1 errors
+[  0.725952] INFO     Trace: 102 events in ring buffer
