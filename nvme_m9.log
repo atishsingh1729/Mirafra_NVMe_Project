@@ -1,0 +1,21 @@
+[  0.713873] INFO   Test 1: Data integrity — 6 patterns, write+read+verify each
+[  0.714241] INFO     All zeros            PASS
+[  0.714560] INFO     All 0xFF             PASS
+[  0.714878] INFO     0xAA/0x55 alternate  PASS
+[  0.715196] INFO     Sequential 0x00-0xFF PASS
+[  0.715515] INFO     Walking ones         PASS
+[  0.715834] INFO     ASCII string         PASS
+[  0.715842] INFO     Patterns: 6/6 passed
+[  0.715846] INFO   Test 2: Sustained write load — 5 seconds at QD=4
+[  5.716056] INFO     1933984 writes in 5.0 s — 386787 IOPS, 188.86 MB/s, 0 errors
+[  5.716084] INFO   Test 3: Sustained read load — 5 seconds at QD=4
+[ 10.716220] INFO     1824313 reads in 5.0 s — 364853 IOPS, 178.15 MB/s, 0 errors
+[ 10.716243] INFO   Test 4: Data integrity after sustained load
+[ 10.716555] INFO     Post-load pattern    PASS
+[ 10.716560] INFO   Test 5: SMART health after load
+[ 10.725386] INFO     41°C | spare=100% | used=6% | warn=0x00
+[ 10.725410] INFO   Summary:
+[ 10.725415] INFO     Integrity  : 6/6 patterns + post-load = ALL PASS
+[ 10.725420] INFO     Write load : 1933984 cmds, 386787 IOPS, 188.86 MB/s, 0 errors
+[ 10.725425] INFO     Read load  : 1824313 cmds, 364853 IOPS, 178.15 MB/s, 0 errors
+[ 10.725428] INFO     Verdict    : PASS — all tests clean
